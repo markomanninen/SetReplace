@@ -2,6 +2,10 @@
   "$SetReplaceGitSHA" -> <|
     "tests" -> {
       VerificationTest[
+        False
+      ],
+
+      VerificationTest[
         StringLength @ $SetReplaceGitSHA,
         40
       ],
