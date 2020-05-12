@@ -40,7 +40,7 @@ namespace SetReplace {
         /** @brief Creates an empty index.
          * @param getAtomsVector datasource function that returns the list of atoms for a requested expression.
          */
-        explicit AtomsIndex(const std::function<AtomsVector(ExpressionID)>& getAtomsVector);
+        explicit AtomsIndex(const std::function<AtomsVector(ExpressionID)> getAtomsVector);
 
         /** @brief Removes expressions with specified IDs from the index.
          */

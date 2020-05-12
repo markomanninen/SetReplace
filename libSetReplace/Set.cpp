@@ -118,7 +118,7 @@ namespace SetReplace {
             return 1;
         }
         
-        int64_t replace(const StepSpecification stepSpec, const std::function<bool()>& shouldAbort) {
+        int64_t replace(const StepSpecification stepSpec, const std::function<bool()> shouldAbort) {
             updateStepSpec(stepSpec);
             int64_t count = 0;
             while (true) {
@@ -144,7 +144,7 @@ namespace SetReplace {
             return result;
         }
         
-        Generation maxCompleteGeneration(const std::function<bool()>& shouldAbort) {
+        Generation maxCompleteGeneration(const std::function<bool()> shouldAbort) {
             indexNewExpressions(shouldAbort);
             return std::min(smallestGeneration(matcher_.allMatches()), largestGeneration_);
         }
@@ -162,7 +162,7 @@ namespace SetReplace {
                        const std::vector<AtomsVector>& initialExpressions,
                        const Matcher::OrderingSpec& orderingSpec,
                        const unsigned int randomSeed,
-                       const std::function<AtomsVector(ExpressionID)>& getAtomsVector) :
+                       const std::function<AtomsVector(ExpressionID)> getAtomsVector) :
         rules_(std::move(rules)),
         atomsIndex_(getAtomsVector),
         matcher_(rules_, atomsIndex_, getAtomsVector, orderingSpec, randomSeed) {
@@ -195,7 +195,7 @@ namespace SetReplace {
             }
         }
         
-        void indexNewExpressions(const std::function<bool()>& shouldAbort) {
+        void indexNewExpressions(const std::function<bool()> shouldAbort) {
             // Atoms index must be updated first, because the matcher uses it to discover expressions.
             atomsIndex_.addExpressions(unindexedExpressions_);
             matcher_.addMatchesInvolvingExpressions(unindexedExpressions_, shouldAbort);
@@ -348,11 +348,11 @@ namespace SetReplace {
              unsigned int randomSeed) :
              implementation_(std::make_shared<Implementation>(rules, initialExpressions, orderingSpec, randomSeed)) {}
 
-    int64_t Set::replaceOnce(const std::function<bool()>& shouldAbort) {
+    int64_t Set::replaceOnce(const std::function<bool()> shouldAbort) {
         return implementation_->replaceOnce(shouldAbort);
     }
 
-    int64_t Set::replace(const StepSpecification& stepSpec, const std::function<bool()>& shouldAbort) {
+    int64_t Set::replace(const StepSpecification& stepSpec, const std::function<bool()> shouldAbort) {
         return implementation_->replace(stepSpec, shouldAbort);
     }
     
@@ -360,7 +360,7 @@ namespace SetReplace {
         return implementation_->expressions();
     }
 
-    Generation Set::maxCompleteGeneration(const std::function<bool()>& shouldAbort) {
+    Generation Set::maxCompleteGeneration(const std::function<bool()> shouldAbort) {
         return implementation_->maxCompleteGeneration(shouldAbort);
     }
 

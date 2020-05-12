@@ -162,7 +162,7 @@ namespace SetReplace {
             randomGenerator_(randomSeed) {}
 
         void addMatchesInvolvingExpressions(const std::vector<ExpressionID>& expressionIDs,
-                                            const std::function<bool()>& shouldAbort) {
+                                            const std::function<bool()> shouldAbort) {
             for (size_t i = 0; i < rules_.size(); ++i) {
                 addMatchesForRule(expressionIDs, static_cast<RuleID>(i), shouldAbort);
             }
@@ -211,7 +211,7 @@ namespace SetReplace {
      private:
         void addMatchesForRule(const std::vector<ExpressionID>& expressionIDs,
                                const RuleID& ruleID,
-                               const std::function<bool()>& shouldAbort) {
+                               const std::function<bool()> shouldAbort) {
             const auto& ruleInputExpressions = rules_[ruleID].inputs;
             for (size_t i = 0; i < ruleInputExpressions.size(); ++i) {
                 const Match emptyMatch{ruleID, std::vector<ExpressionID>(ruleInputExpressions.size(), -1)};
@@ -223,7 +223,7 @@ namespace SetReplace {
                                               const std::vector<AtomsVector>& partiallyMatchedInputs,
                                               const size_t nextInputIdx,
                                               const std::vector<ExpressionID>& potentialExpressionIDs,
-                                              const std::function<bool()>& shouldAbort) {
+                                              const std::function<bool()> shouldAbort) {
             for (const auto expressionID : potentialExpressionIDs) {
                 if (isExpressionUnused(incompleteMatch, expressionID)) {
                     attemptMatchExpressionToInput(incompleteMatch,
@@ -244,7 +244,7 @@ namespace SetReplace {
                                            const std::vector<AtomsVector>& partiallyMatchedInputs,
                                            const size_t nextInputIdx,
                                            const ExpressionID potentialExpressionID,
-                                           const std::function<bool()>& shouldAbort) {
+                                           const std::function<bool()> shouldAbort) {
             // If WL wants to abort, abort
             if (shouldAbort()) {
                 throw Error::Aborted;
@@ -394,14 +394,14 @@ namespace SetReplace {
 
     Matcher::Matcher(const std::vector<Rule>& rules,
                      AtomsIndex& atomsIndex,
-                     const std::function<AtomsVector(ExpressionID)>& getAtomsVector,
+                     const std::function<AtomsVector(ExpressionID)> getAtomsVector,
                      const OrderingSpec& orderingSpec,
                      const unsigned int randomSeed)
         : implementation_(std::make_shared<Implementation>(rules, atomsIndex, getAtomsVector, orderingSpec, randomSeed))
         {}
 
     void Matcher::addMatchesInvolvingExpressions(const std::vector<ExpressionID>& expressionIDs,
-                                                 const std::function<bool()>& shouldAbort) {
+                                                 const std::function<bool()> shouldAbort) {
         implementation_->addMatchesInvolvingExpressions(expressionIDs, shouldAbort);
     }
 
